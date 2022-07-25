@@ -1,0 +1,23 @@
+{
+  "name": "mern-api",
+  "version": "1.0.0",
+  "description": "Rest API Node JS (MERN Stack)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awannawa/mern.git"
+  },
+  "author": "Ahmad Rizqi K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/awannawa/mern/issues"
+  },
+  "homepage": "https://github.com/awannawa/mern#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
