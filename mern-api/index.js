@@ -1,11 +1,8 @@
 const express = require("express");
 
-const server = express();
-const port = 4000;
+const app = express();
+const productRoutes = require("./src/routes/products");
 
-server.use(express());
+app.use("/v1/pelanggan", productRoutes);
 
-server.listen(port, () => {
-  console.log("Server berhasil running pada port : " + port);
-  console.log("Server berhasil");
-});
+app.listen(4000);
