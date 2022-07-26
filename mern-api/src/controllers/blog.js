@@ -8,7 +8,7 @@ exports.createBlogPost = (req, res, next) => {
     data: {
       post_id: 1,
       title: "Title Blog",
-      //   image: "iamgepath.png",
+      image: "iamgepath.png",
       body: "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem ",
       created_at: "26/07/2022",
       author: {
@@ -17,5 +17,5 @@ exports.createBlogPost = (req, res, next) => {
       },
     },
   };
-  res.staus(201).json(result);
+  res.status(201).json(result);
 };
