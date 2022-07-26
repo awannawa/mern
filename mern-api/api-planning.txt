@@ -1,0 +1,90 @@
+Standar API
+
+{root.api}/{version}/{grouping}/{endpoint}
+SAMPLE:
+http://mern-api.localhost:3000/v1/auth/login
+
+===================================================
+Standar Status response
+
+200 - OK                            ---> Call API Success.
+201 - CREATED                       ---> Post Success.
+400 - BAD REEQUEST                  ---> Error on Client Side.
+401 - UNAUTHORIZED                  ---> User not authorized to the request.
+403 - FORBIDDEN                     ---> User not allowed to access.
+404 - NOT FOUND                     ---> Request Endpoint Not Found.
+500 - INTERNAL SERVER ERROR         ---> Error on Server Side
+502 - BAD GATEWAY                   ---> Invaliod Response From Another Request
+
+===================================================
+
+GROUP: Authentication
+
+[1] - Register
+SAMPLE: {root.api}/{version}/auth/register
+
+req:
+{
+    "name": "awan",
+    "email": "email@email.com",
+    "password": "1213123"
+}
+res:
+{
+    "message": "Registrasi Success",
+    "data": {
+        "name": "awan",
+        "email": "email@email.com",
+        "password": "1213123"
+    }
+    
+}
+
+err-response :
+201 -> Register Berhasil
+400 -> Input yang anda masukan tidak valid
+
+[2] - Login
+SAMPLE: {root.api}/{version}/auth/login
+
+req: {
+    ...
+}
+
+===================================================
+GROUP : BLOG
+
+[1] - Create Blog Post
+[POST] : {root.api}/{version}/blog/Post
+
+req_preview :
+{
+    "title" : "Title Blog",
+    "image" : "imagefile.png",
+    "body" : "lorem ipsum is simply dummy lorem"
+}
+
+res: 
+{
+    'message': 'Create Blog Post Success',
+    'data': {
+        'post_id': '1',
+        'title': 'Title Blog',
+        'image': 'imagefile.png',
+        'body': 'lorem textlorem textlorem textlorem textlorem textlorem text',
+        'created_at': "26-07-2022",
+        'author' : {
+            'uid': 1,
+            'name': 'Testing'
+        }
+    }
+}
+
+err-response :
+201 -> Register Berhasil
+400 -> Input yang anda masukan tidak valid
+
+
+[2] - Get Blog Post
+[3] - Update Blog Post
+[4] - Delete Blog Post
