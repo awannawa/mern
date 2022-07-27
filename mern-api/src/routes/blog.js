@@ -14,8 +14,8 @@ router.post(
   ],
   blogController.updateBlogPost
 );
-// --- display semua post ---
-router.get("/posts", blogController.getAllBlogPost);
+// --- display 1 halaman 2 post ---
+router.get("/posts/", blogController.getAllBlogPost);
 
 // --- display spesifik post ---
 router.get("/post/:postId", blogController.getBlogPostById);

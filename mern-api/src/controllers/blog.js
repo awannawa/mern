@@ -45,13 +45,27 @@ exports.createBlogPost = (req, res, next) => {
     });
 };
 
-// --- Display Semua Postingan ---
+// --- display 1 halaman 5 post ---
 exports.getAllBlogPost = (req, res, next) => {
+  const currentPage = req.query.page || 1;
+  const perPage = req.query.perPage || 5;
+  let totalItems;
+
   BlogPost.find()
+    .countDocuments()
+    .then((count) => {
+      totalItems = count;
+      return BlogPost.find()
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage);
+    })
     .then((result) => {
       res.status(200).json({
         message: "Data Blog Post Berhasil dipanggil",
         data: result,
+        total_data: totalItems,
+        per_page: perPage,
+        currnet_page: currentPage,
       });
     })
     .catch((err) => {
