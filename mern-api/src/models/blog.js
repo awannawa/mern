@@ -7,7 +7,10 @@ const BlogPost = new Schema(
       type: String,
       required: true,
     },
-    // image belum
+    image: {
+      type: String,
+      required: true,
+    },
     body: {
       type: String,
       required: true,
