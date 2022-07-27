@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, BlogItem, Gap } from "../../components";
 import "./home.scss";
 import { useHistory } from "react-router-dom";
+import Axios from "axios";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const [dataBlog, setDataBlog] = useState([]);
+  const stateGlobal = useSelector((state) => state);
+  console.log("state global: ", stateGlobal);
+  useEffect(() => {
+    Axios.get("http://localhost:4000/v1/blog/posts?page=2&perPage=2")
+      .then((result) => {
+        console.log("data API", result.data);
+        const responseAPI = result.data;
+
+        setDataBlog(responseAPI.data);
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
+  }, []);
   const history = useHistory();
   return (
     <div className="home-page-wrapper">
@@ -15,12 +32,18 @@ const Home = () => {
       </div>
       <Gap height={20} />
       <div className="content-wrapper">
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
+        {dataBlog.map((blog) => {
+          return (
+            <BlogItem
+              key={blog._id}
+              image={`http://localhost:4000/${blog.image}`}
+              title={blog.title}
+              body={blog.body}
+              author={blog.author.name}
+              date={blog.createdAt}
+            />
+          );
+        })}
       </div>
       <div className="pagination">
         <Button title="<< Previus" />

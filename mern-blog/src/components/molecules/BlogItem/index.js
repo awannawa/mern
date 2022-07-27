@@ -4,19 +4,18 @@ import { RegisterBg } from "../../../assets";
 import { Button } from "../../atoms";
 import { useHistory } from "react-router-dom";
 
-const BlogItem = () => {
+const BlogItem = (props) => {
   const history = useHistory();
+  const { image, title, name, date, body } = props;
   return (
     <div className="blog-item">
-      <img className="image-thumb" src={RegisterBg} alt="judul" />
+      <img className="image-thumb" src={image} alt="judul" />
       <div className="content-detail"></div>
-      <p className="title">Title Blog</p>
-      <p className="author">Author - Date Post</p>
-      <p className="body">
-        In tempor ut eu veniam est id anim anim excepteur voluptate. Quis
-        laborum irure nostrud commodo Lorem enim aute amet magna voluptate. Quis
-        dolor amet fugiat in. Cillum ea officia consequat amet.
+      <p className="title">{title}</p>
+      <p className="author">
+        {name} - {date}
       </p>
+      <p className="body">{body}</p>
       <Button
         title="View Detail"
         onClick={() => history.push("/detail-blog")}
