@@ -7,11 +7,11 @@ const BlogPost = new Schema(
       type: String,
       required: true,
     },
-    image: {
+    body: {
       type: String,
       required: true,
     },
-    body: {
+    image: {
       type: String,
       required: true,
     },

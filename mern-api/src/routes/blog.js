@@ -12,7 +12,7 @@ router.post(
     body("title").isLength({ min: 5 }).withMessage("Input Title tidak sesuai"),
     body("body").isLength({ min: 5 }).withMessage("Input Body tidak sesuai"),
   ],
-  blogController.updateBlogPost
+  blogController.createBlogPost
 );
 // --- display 1 halaman 2 post ---
 router.get("/posts/", blogController.getAllBlogPost);
