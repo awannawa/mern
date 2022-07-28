@@ -65,7 +65,7 @@ exports.getAllBlogPost = (req, res, next) => {
         data: result,
         total_data: totalItems,
         per_page: parseInt(perPage),
-        currnet_page: parseInt(currentPage),
+        current_page: parseInt(currentPage),
       });
     })
     .catch((err) => {
