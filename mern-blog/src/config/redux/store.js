@@ -1,17 +1,24 @@
-const { createStore } = require("redux");
+const { createStore, combineReducers } = require("redux");
 
-const initialState = {
+const initialStateHome = {
   dataBlogs: [],
-  name: "awan",
 };
 
-const reducer = (state = initialState, action) => {
+const homeReducer = (state = initialStateHome, action) => {
   if (action.type === "UPDATE_DATA_BLOG") {
     return {
       ...state,
       dataBlogs: action.payload,
     };
   }
+  return state;
+};
+
+const initialState = {
+  dataBlogs: [],
+  name: "awan",
+};
+const globalReducer = (state = initialState, action) => {
   if (action.type === "UPDATE_NAME") {
     return {
       ...state,
@@ -20,6 +27,8 @@ const reducer = (state = initialState, action) => {
   }
   return state;
 };
+
+const reducer = combineReducers({ homeReducer, globalReducer });
 
 const store = createStore(reducer);
 
