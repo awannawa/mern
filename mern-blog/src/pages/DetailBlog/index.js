@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./detailBlog.scss";
-import { RegisterBg } from "../../assets";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import { Link } from "../../components";
+import axios from "axios";
 
-const DetailBlog = () => {
+const DetailBlog = (props) => {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    const id = props.match.params.id;
+    axios
+      .get(`http://localhost:4000/v1/blog/post/${id}`)
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  }, [props]);
   const history = useHistory();
-
-  return (
-    <div className="detail-blog-wrapper">
-      <img className="img-cover" src={RegisterBg} alt="thumb" />
-      <p className="blog-title">Title Blog</p>
-      <p className="blog-author">Author</p>
-      <p className="blog-body">
-        Culpa aliquip et qui proident sunt fugiat nulla do veniam commodo
-        fugiat. Aliquip fugiat Lorem id excepteur labore cupidatat occaecat non
-        esse. Cillum officia nulla reprehenderit ea dolor aliquip. Minim
-        consequat incididunt cillum commodo occaecat et amet nisi. Ea incididunt
-        ea velit minim pariatur officia dolor reprehenderit non velit consequat
-        dolore dolor aliquip. Id magna ad culpa esse ad est nulla fugiat nisi
-        tempor. Laborum mollit Lorem ut veniam elit.
-      </p>
-      <Link title="Kembali" onClick={() => history.push("/")} />
-    </div>
-  );
+  if (data.author) {
+    return (
+      <div className="detail-blog-wrapper">
+        <img
+          className="img-cover"
+          src={`http://localhost:4000/${data.image}`}
+          alt="thumb"
+        />
+        <p className="blog-title">{data.title}</p>
+        <p className="blog-author">
+          {data.author.name} - Dibuat pada {data.createdAt} - Diupdate Pada{" "}
+          {data.updatedAt}
+        </p>
+        <p className="blog-body">{data.body}</p>
+        <Link title="Kembali" onClick={() => history.push("/")} />
+      </div>
+    );
+  }
+  return <p>Loading data...</p>;
 };
 
-export default DetailBlog;
+export default withRouter(DetailBlog);

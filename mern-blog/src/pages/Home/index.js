@@ -10,7 +10,6 @@ const Home = () => {
   const { dataBlog, page } = useSelector((state) => state.homeReducer);
   const dispatch = useDispatch();
 
-  console.log("page ]", page);
   useEffect(() => {
     dispatch(setDataBlog(counter));
   }, [counter, dispatch]);
@@ -19,12 +18,10 @@ const Home = () => {
 
   const previous = () => {
     setCounter(counter <= 1 ? 1 : counter - 1);
-    console.log(counter);
   };
 
   const next = () => {
     setCounter(counter === page.totalPage ? page.totalPage : counter + 1);
-    console.log(counter);
   };
 
   return (
@@ -46,6 +43,7 @@ const Home = () => {
               body={blog.body}
               author={blog.author.name}
               date={blog.createdAt}
+              _id={blog._id}
             />
           );
         })}

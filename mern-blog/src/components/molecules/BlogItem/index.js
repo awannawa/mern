@@ -5,12 +5,11 @@ import { useHistory } from "react-router-dom";
 
 const BlogItem = (props) => {
   const history = useHistory();
-  const { image, title, author, date, body } = props;
+  const { image, title, author, date, body, _id } = props;
   return (
     <div className="blog-item">
       <img className="image-thumb" src={image} alt="judul" />
       <div className="content-detail">
-        {" "}
         <p className="title">{title}</p>
         <p className="author">
           {author} - {date}
@@ -19,7 +18,7 @@ const BlogItem = (props) => {
       </div>
       <Button
         title="View Detail"
-        onClick={() => history.push("/detail-blog")}
+        onClick={() => history.push(`/detail-blog/${_id}`)}
       />
     </div>
   );
