@@ -10,7 +10,18 @@ const BlogItem = (props) => {
     <div className="blog-item">
       <img className="image-thumb" src={image} alt="judul" />
       <div className="content-detail">
-        <p className="title">{title}</p>
+        <div className="title-wrapper">
+          <p className="title">{title}</p>
+          <div className="edit-wrapper">
+            <p
+              className="edit"
+              onClick={() => history.push(`/create-blog/${_id}`)}
+            >
+              Edit
+            </p>{" "}
+            |<p className="delete"> Delete</p>
+          </div>
+        </div>
         <p className="author">
           {author} - {date}
         </p>
