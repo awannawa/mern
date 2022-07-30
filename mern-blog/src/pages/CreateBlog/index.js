@@ -1,23 +1,52 @@
-// import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Gap, Input, TextArea, Upload, Link } from "../../components";
 import "./createBlog.scss";
 import { useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { postToAPI, setForm, setImgPreview } from "../../config/redux/action";
-import { useEffect } from "react";
+import {
+  postToAPI,
+  setForm,
+  setImgPreview,
+  updateToAPI,
+} from "../../config/redux/action";
+import axios from "axios";
 
 const CreateBlog = (props) => {
   const { form, imgPreview } = useSelector((state) => state.createBlogReducer);
-  const { body } = form;
+  const { title, body } = form;
+  const [isUpdate, setIsUpdate] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     console.log("params: ", props);
-  });
+    const id = props.match.params.id;
+    if (id) {
+      setIsUpdate(true);
+      axios
+        .get(`http://localhost:4000/v1/blog/post/${id}`)
+        .then((res) => {
+          const data = res.data.data;
+          console.log("data :", data);
+          dispatch(setForm("title", data.title));
+          dispatch(setForm("body", data.body));
+          dispatch(setImgPreview(`http://localhost:4000/${data.image}`));
+        })
+        .catch((err) => {
+          console.log("error :", err);
+        });
+    }
+  }, [props]);
 
   const onSubmit = () => {
-    postToAPI(form);
+    const id = props.match.params.id;
+    if (isUpdate) {
+      console.log("update data");
+      updateToAPI(form, id);
+    } else {
+      console.log("create data");
+      postToAPI(form);
+    }
   };
 
   const onImageUpload = (e) => {
@@ -28,10 +57,13 @@ const CreateBlog = (props) => {
   return (
     <div className="blog-post">
       <Link title="Kembali" onClick={() => history.push("/")} />
-      <p className="title">Create New Blog Post</p>
+      <p className="title">
+        {isUpdate ? "Update Postingan" : "Create Postingan"}
+      </p>
       <Input
         label="Post Title"
         placeholder="Tulis Judul Disini"
+        value={title}
         onChange={(e) => dispatch(setForm("title", e.target.value))}
       />
       <Upload onChange={(e) => onImageUpload(e)} img={imgPreview} />
@@ -41,7 +73,7 @@ const CreateBlog = (props) => {
       />
       <Gap height={20} />
       <div className="button-action">
-        <Button title="Save" onClick={onSubmit} />
+        <Button title={isUpdate ? "Update" : "Simpan"} onClick={onSubmit} />
       </div>
     </div>
   );

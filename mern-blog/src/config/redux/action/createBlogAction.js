@@ -26,3 +26,23 @@ export const postToAPI = (form) => {
       console.log("err: ", err);
     });
 };
+
+export const updateToAPI = (form, id) => {
+  const data = new FormData();
+  data.append("title", form.title);
+  data.append("body", form.body);
+  // benerin image biar pas pada gak ada requestnya dia bisa tetep input
+  data.append("image", form.image);
+  axios
+    .put(`http://localhost:4000/v1/blog/post/${id}`, data, {
+      header: {
+        "content-type": "multipart/form-data",
+      },
+    })
+    .then((res) => {
+      console.log("update success: ", res);
+    })
+    .catch((err) => {
+      console.log("err: ", err);
+    });
+};
