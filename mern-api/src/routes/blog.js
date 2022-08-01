@@ -14,7 +14,7 @@ router.post(
   ],
   blogController.createBlogPost
 );
-// --- display 1 halaman 2 post ---
+// --- display 1 halaman posts ---
 router.get("/posts/", blogController.getAllBlogPost);
 
 // --- display spesifik post ---
