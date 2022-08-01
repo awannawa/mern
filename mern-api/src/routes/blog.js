@@ -28,7 +28,7 @@ router.put("/post/:postId", [
   ],
   blogController.updateBlogPost),
 ]);
-
+//test
 // --- Delete Postingan ---
 router.delete("/post/:postId", blogController.deleteBlogPost);
 
